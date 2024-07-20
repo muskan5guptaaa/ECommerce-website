@@ -3,60 +3,55 @@ const Product = require('../models/Product');
 const Review = require('../models/Review');
 const router = express.Router(); //mini application
 
-//read
-router.get('/products'  , async (req,res)=>{
+router.get('/products' , async(req,res)=>{
     let products = await Product.find({});
-    res.render('index' , {products})
-});
+    res.render('products/index' , {products});
+})
 
-//new form
+
+// to show the form for new product
 router.get('/product/new' , (req,res)=>{
-    res.render('new')
+    res.render('products/new');
 })
 
-//actually adding
-router.post('/products', async(req,res)=>{
-    let {name , img , price , desc} = req.body; //by default undefined
-    await Product.create({name , img , price , desc}); //automatically db save
-    res.redirect('/products')
+// to actually add the product
+router.post('/products' , async(req,res)=>{
+    let {name , img , price , desc} = req.body;
+    await Product.create({name , img , price , desc})
+    res.redirect('/products');
 })
 
-//show particular product
+
+// to show a particular product
 router.get('/products/:id' , async(req,res)=>{
     let {id} = req.params;
-    let foundProduct = await Product.findById(id).populate('reviews');
-    // console.log(foundProduct);
-    res.render('show' , {foundProduct} );
+    let foundProduct = await Product.findById(id);
+    res.render('products/show' , {foundProduct})
 })
 
-//show edit form
+
+// form to edit the product
 router.get('/products/:id/edit' , async(req,res)=>{
     let {id} = req.params;
-    // let foundProduct = await Product.findById(id);
     let foundProduct = await Product.findById(id);
-    res.render('edit' , {foundProduct})
+    res.render('products/edit' , {foundProduct})
 })
 
-//actully changing the product
+// to actually edit the data in db
 router.patch('/products/:id' , async(req,res)=>{
     let {id} = req.params;
     let {name , img , price , desc} = req.body;
-    await Product.findByIdAndUpdate(id , {name , img , price , desc} );
-    res.redirect('/products')
+    await Product.findByIdAndUpdate( id , {name , img , price , desc}  )
+    res.redirect(`/products/${id}`);
 })
 
-//deleting
+
+// to delete a product
 router.delete('/products/:id' , async(req,res)=>{
     let {id} = req.params;
-    let foundProduct = await Product.findById(id);
-    //deleting reviews before deleting product
-    for(let ids of foundProduct.reviews){
-        await Review.findByIdAndDelete(ids);
-    }
-
     await Product.findByIdAndDelete(id);
-    res.redirect('/products')
+    res.redirect('/products');
 })
 
-module.exports = router;
 
+module.exports = router;
