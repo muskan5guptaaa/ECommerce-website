@@ -1,4 +1,5 @@
 const mongoose = require('mongoose'); //object
+const Review = require('./Review');
 
 // schema
 const productSchema = new mongoose.Schema({
@@ -27,6 +28,12 @@ const productSchema = new mongoose.Schema({
         }
     ]
 })
+productSchema.post('findOneAndDelete' , async function(product){
+    if(product.reviews.length > 0){
+        await Review.deleteMany({_id:{$in:product.reviews}})
+    }
+})
+
 
 // model/collection -> JS class -> objects/document
 //model -> sigular & capital letter
