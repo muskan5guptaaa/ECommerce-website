@@ -11,6 +11,7 @@ router.post('/products/:id/rating' , async(req,res)=>{
     let product = await Product.findById(id);
     // new review using class
     let review  = new Review({ rating , comment });
+    
 
     product.reviews.push(review);
 
