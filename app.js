@@ -6,7 +6,6 @@ const seedDB = require('./seed');
 const methodOverride = require('method-override')
 const productRoutes = require('./routes/product');
 const ejsMate = require('ejs-mate');
-
 const reviewRoutes = require('./routes/review');
 
  
@@ -32,7 +31,8 @@ app.use(methodOverride('_method'));
 // seeding database
 //seedDB()
 
-app.use(productRoutes); //so that harr incoming request ke liye path check kiya jaae
+app.use(productRoutes);
+app.use(reviewRoutes); //so that harr incoming request ke liye path check kiya jaae
 
 
 
