@@ -1,7 +1,7 @@
 //schema for youre server side validation
 const Joi = require('joi');
 
-const productschema = Joi.object({
+const productSchema = Joi.object({
       name:Joi.string().required(),
       img: Joi.string().required(),
       price: Joi.string().min(0).required(),
@@ -13,4 +13,4 @@ const reviewSchema=Joi.object({
     rating:Joi.string().min(0).required(),
     comment:Joi.string().required()
 })
-module.exports={productschema,reviewSchema}
+module.exports={productSchema,reviewSchema}
