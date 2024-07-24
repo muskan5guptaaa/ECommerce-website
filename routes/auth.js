@@ -29,7 +29,19 @@ router.post('/login',
         failureMessage: true 
     }),
     (req,res)=>{
-        // console.log(req.user,'sam');
+         console.log(req.user,'sam');
         req.flash('success' , 'welcome back')
         res.redirect('/products');
 })
+// logout
+router.get('/logout' , (req,res)=>{
+    ()=>{
+        req.logout();
+    }
+    req.flash('success' , 'goodbye friends, see you again')
+    res.redirect('/login');
+
+})
+
+
+module.exports=router;
