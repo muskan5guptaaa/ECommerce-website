@@ -8,7 +8,7 @@ const validateProduct = (req,res,next)=>{
     next();
 }
 
-const validateReview = ()=>{
+const validateReview = (req,res,next)=>{
     const {rating,comment} = req.body;
     const {error} = reviewSchema.validate({rating,comment})
     if(error){

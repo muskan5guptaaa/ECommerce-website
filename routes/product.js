@@ -29,6 +29,8 @@ router.post('/products',validateProduct , async(req,res)=>{
     try{
         let {name , img ,price , desc} = req.body;
         await Product.create({name , img , price , desc})
+        req.flash('success','Product added succesfully')
+
         res.redirect('/products');
     }
     catch(e){
@@ -42,7 +44,7 @@ router.get('/products/:id' , async(req,res)=>{
     try{
         let {id} = req.params;
         let foundProduct = await Product.findById(id);
-        res.render('products/show' , {foundProduct})
+        res.render('products/show' , {foundProduct,msg:req.flash('msg')})
     }
     catch(e){
         res.status().render('error',{err:e.message});
@@ -68,6 +70,7 @@ router.patch('/products/:id' , async(req,res)=>{
         let {id} = req.params;
         let {name , img , price , desc} = req.body;
         await Product.findByIdAndUpdate( id , {name , img , price , desc}  )
+        req.flash('success','Product edited succesfully')
         res.redirect(`/products/${id}`);
     }
     catch(e){
@@ -81,6 +84,8 @@ router.delete('/products/:id' , async(req,res)=>{
     try{
         let {id} = req.params;
         await Product.findByIdAndDelete(id);
+        req.flash('success','Product delete succesfully')
+
         res.redirect('/products');
     }
     catch(e){

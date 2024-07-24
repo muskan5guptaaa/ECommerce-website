@@ -2,10 +2,10 @@ const express = require('express');
 const router = express.Router() //mini instance
 const Product = require('../models/Product')
 const Review = require('../models/Review')
-const {validateSchema, validateReview}=require('../middleware')
+const {validateReview}=require('../middleware')
 
 
-router.post('/products/:id/review',validateReview , async(req,res)=>{
+router.post('/products/:id/review', validateReview, async(req,res)=>{
     try{
         let {id} = req.params;
         let {rating,comment} =req.body;
@@ -15,6 +15,7 @@ router.post('/products/:id/review',validateReview , async(req,res)=>{
         product.reviews.push(review);
         await review.save();
         await product.save();
+        req.flash('success','Review added succesfully')
         res.redirect(`/products/${id}`);
     }
     catch(e){
