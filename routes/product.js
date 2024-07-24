@@ -27,7 +27,7 @@ router.get('/product/new' , (req,res)=>{
 // to actually add the product
 router.post('/products',validateProduct , async(req,res)=>{
     try{
-        let {name , img , price , desc} = req.body;
+        let {name , img ,price , desc} = req.body;
         await Product.create({name , img , price , desc})
         res.redirect('/products');
     }
@@ -51,7 +51,7 @@ router.get('/products/:id' , async(req,res)=>{
 
 
 // form to edit the product
-router.get('/products/:id/edit' ,validateProduct, async(req,res)=>{
+router.get('/products/:id/edit' , async(req,res)=>{
     try{
         let {id} = req.params;
         let foundProduct = await Product.findById(id);

@@ -29,7 +29,7 @@ app.use(express.urlencoded({extended:true}));
 app.use(methodOverride('_method'));
 
 // seeding database
-//seedDB()
+// seedDB()
 
 app.use(productRoutes);
 app.use(reviewRoutes); //so that harr incoming request ke liye path check kiya jaae
