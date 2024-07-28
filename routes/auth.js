@@ -10,14 +10,22 @@ router.get('/register' , (req,res)=>{
 
 // actually want to register a user in my DB
 router.post('/register' , async(req,res)=>{
-   
-    let {email,password,username} = req.body;
-    const user = new User({email,username})
-    const newUser = await User.register(user , password );
-    res.redirect('/login');
-
+    try{
+        let {email,password,username,role} = req.body;
+        const user = new User({email,username,role})
+        const newUser = await User.register(user , password );
+        // res.redirect('/login');
+        req.login( newUser , function(err){
+            if(err){return next(err)}
+            req.flash('success' , 'welcome,  you are registed succesfully');
+            return res.redirect('/products');
+        })
+    }
+    catch(e){
+        req.flash('error' , e.message);
+        return res.redirect('/signup');
+    }
 })
-
 // to get login form
 router.get('/login' , (req,res)=>{
     res.render('auth/login');

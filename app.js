@@ -15,6 +15,7 @@ const User = require('./models/User');
 const productRoutes = require('./routes/product')
 const reviewRoutes = require('./routes/review')
 const authRoutes = require('./routes/auth')
+const cartRoutes = require('./routes/cart')
 
 
 
@@ -69,8 +70,9 @@ passport.use(new LocalStrategy(User.authenticate()));
 // seedDB()
 
 app.use(productRoutes); //so that harr incoming request ke liye path check kiya jaae
-app.use(reviewRoutes);  
-app.use(authRoutes);  
+app.use(reviewRoutes);  //so that harr incoming request ke liye path check kiya jaae
+app.use(authRoutes);  //so that harr incoming request ke liye path check kiya jaae
+app.use(cartRoutes);  //so that harr incoming request ke liye path check kiya jaae
 
 
 

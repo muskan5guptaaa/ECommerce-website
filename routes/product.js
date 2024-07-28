@@ -2,7 +2,7 @@ const express = require('express');
 const Product = require('../models/Product');
 const Review = require('../models/Review');
 const router = express.Router() //mini instance
-const {validateProduct , isLoggedIn} = require('../middleware')
+const {validateProduct , isLoggedIn, isSeller, isProductAuthor} = require('../middleware')
 
 
 // to show all the products
@@ -28,7 +28,7 @@ router.get('/product/new' , isLoggedIn , (req,res)=>{
 })
 
 // to actually add the product
-router.post('/products' , validateProduct , isLoggedIn ,   async(req,res)=>{
+router.post('/products' , validateProduct , isLoggedIn , isProductAuthor , async(req,res)=>{
     try{
         let {name , img , price , desc} = req.body;
         await Product.create({name , img , price , desc})
@@ -42,7 +42,7 @@ router.post('/products' , validateProduct , isLoggedIn ,   async(req,res)=>{
 
 
 // to show a particular product
-router.get('/products/:id' , isLoggedIn , async(req,res)=>{
+router.get('/products/:id' , isLoggedIn ,isSeller, async(req,res)=>{
     try{
         let {id} = req.params;
         let foundProduct = await Product.findById(id).populate('reviews');

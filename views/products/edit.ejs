@@ -1,84 +1,44 @@
-<% layout('layouts/boilerplate') %>
 
-<%- include('../partials/navbar') %>    
+<% layout('layouts/boilerplate') -%>
+
 
 <div class="row">
-    <div class="col-6 mx-auto">
-
-        <form action="/products/<%=foundProduct._id%>?_method=PATCH" method="POST" class="needs-validation" novalidate>
-
+    <div class="col-md-6 mx-auto">
+        <form action="/products/<%=product._id%>?_method=PATCH" class="validated-form" method="POST" novalidate>
             <div class="mb-3">
-                <label for="naam">Name: </label>
-                <input type="text" class="form-control" name="name" id="naam" placeholder="Name of the product" value="<%=foundProduct.name%>" required>
+                <label class="form-label" for="name">Name : </label>
+                <input class="form-control" type="text" name="name" id="name" placeholder="Product Name" value="<%=product.name%>" required>
                 <div class="valid-feedback">
                     Looks good!
                   </div>
-                  <div class="invalid-feedback">
-                    Please enter a Name field.
-                  </div>
             </div>
-
             <div class="mb-3">
-                <label for="img">Image: </label>
-                <input type="text" class="form-control" name="img" id="img" placeholder="Image URL of the product" value="<%=foundProduct.img%>" required>
+                <label for="img" class="form-label">Image URL</label>
+                <input class="form-control" type="text" name="img" id="img" placeholder="Product Image URL" value="<%=product.img%>" required>
                 <div class="valid-feedback">
                     Looks good!
                   </div>
-                  <div class="invalid-feedback">
-                    Please enter a Image field.
-                  </div>
             </div>
-
-            <div class="mb-3">
-                <label for="paisa">Price: </label>
-                <input type="number" class="form-control" name="price" id="paisa" placeholder="price of the product" value="<%=foundProduct.price%>" required>
-                <div class="valid-feedback">
-                    Looks good!
-                  </div>
-                  <div class="invalid-feedback">
-                    Please enter a Price field.
-                  </div>
-            </div>
-
-            <div class="mb-3">
-                <label for="desc">Description: </label>
-                <textarea name="desc" id="desc" rows="5" placeholder="Description of product"> <%=foundProduct.desc%> </textarea required>
-                <div class="valid-feedback">
-                    Looks good!
-                  </div>
-                  <div class="invalid-feedback">
-                    Please enter a Description field.
-                  </div>
-            </div>
-            <button class="btn btn-sm btn-success" type="submit">Edit Product</button>
-
-        </form>
-
-    </div>
         
+            <div class="mb-3">
+                <label for="price" class="form-label">Price</label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">$</span>
+                    <input type="text" name="price" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" value="<%=product.price%>" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                      </div>
+                </div>  
+            </div>
+        
+            <div class="mb-3">
+                <label class="form-label" for="desc">Description</label>
+                <textarea class="form-control" name="desc" id="desc" rows="5" required><%=product.desc%> </textarea>
+                <div class="valid-feedback">
+                    Looks good!
+                  </div>
+            </div>
+            <button type="submit" class="btn btn-sm btn-success">Save</button>
+        </form>
+    </div>
 </div>
-<script>
-    (() => {
-        'use strict'
-      //immmediately invoked functional expression
-        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-        const forms = document.querySelectorAll('.needs-validation')
-      
-        // Loop over them and prevent submission
-        Array.from(forms).forEach(form => {
-          form.addEventListener('submit', event => {
-            if (!form.checkValidity()) {
-              event.preventDefault()
-              event.stopPropagation()
-            }
-      
-            form.classList.add('was-validated')
-          }, false)
-        })
-      })()
-      
-</script>
-
-
-</body>
-</html>
