@@ -22,7 +22,4 @@ router.post('/user/:productId/add' , isLoggedIn , async(req,res)=>{
     await user.save();
     res.redirect('/user/cart');
 })
-
-
-
 module.exports = router;

@@ -16,7 +16,6 @@ const reviewSchema = new mongoose.Schema({
 
 // model/collection -> JS class -> objects/document
 //model -> sigular & capital letter
-
-let Review =  mongoose.model('Review' , reviewSchema);
+const  Review =  mongoose.model('Review' , reviewSchema);
 
 module.exports = Review;
