@@ -4,7 +4,7 @@ const Product = require('../models/Product');
 const { validateProduct , isLoggedIn  , isSeller ,isProductAuthor} = require('../middleware');
 const {showAllProducts, productForm , createProduct , showProduct , editProductForm , updateProduct , deleteProduct} =  require('../controllers/product')
 
-router.get('/products', showAllProducts );
+router.get('/products', showAllProducts,isLoggedIn );
 
 
 router.get('/products/new', isLoggedIn, isSeller, productForm);

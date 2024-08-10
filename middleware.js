@@ -4,6 +4,7 @@ const passport = require('passport');
 const Product = require("./models/Product");
 
 
+
 const isLoggedIn = (req,res,next)=>{
     // console.log(req.originalUrl);
     // console.log(req.xhr);
