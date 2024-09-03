@@ -25,25 +25,26 @@ router.post('/user/:productId/add' , isLoggedIn , async(req,res)=>{
 })
 
 router.get("/product/payment", async (req, res) => {
-    const session = await stripe.checkout.sessions.create({
-      line_items: [
-        {
-          price_data: {
-            currency: 'usd',
-            product_data: {
-              name: 'T-shirt',
-            },
-            unit_amount: 2000,
+  const session = await stripe.checkout.sessions.create({
+    line_items: [
+      {
+        
+        price_data: {
+          currency: 'usd',
+          product_data: {
+            name: 'T-shirt',
           },
-          quantity: 1,
+          unit_amount: 2000,
         },
-      ],
-      mode: 'payment',
-      success_url: 'http://localhost:4242/success',
-      cancel_url: 'http://localhost:4242/cancel',
-    });
-  
+        quantity: 1,
+      },
+    ],
+    mode: 'payment',
+    success_url: 'http://localhost:4242/success',
+    cancel_url: 'http://localhost:4242/cancel',
+  });
 
-    res.redirect(303, session.url);
+  res.redirect(303, session.url);
 });
+
 module.exports = router;
